@@ -1,0 +1,89 @@
+# Day 06 - Debug Day
+
+Fixing broken files
+
+## Ansible (broken)
+
+-name Install nginx
+hosts all
+become yes
+tasks:
+   - name: Install nginx
+   yum:
+      name nginx
+      state present
+
+
+## Terrafotm (broken)
+
+rresource "aws_instance" "BrokenEC2" {
+    ami= "amii-xyz"
+    instance_type = t2.micro
+ttags {
+    Name = "Broken"
+
+}
+}
+
+## Kubernetes (broken)
+
+apiVersion: v1
+kind: Pod
+metadata: 
+  name: pathnex
+spec
+  containers:
+    - naame: app
+      image: nginx
+
+
+# Debugging Pipelinne
+
+## Jenkins Pipeline - Debugging
+
+pipeline {
+    angent any
+    stages{
+        stage("Checkout") {
+            steps {
+                git branch 'main', url: 'https://github.com?Pathnex/sample-java-app.git"
+            }
+        }
+        stage('Build') {
+            steps {
+                sh '''
+                mvn clean compllie  || {echo "Compile failed'; exit 1; }
+                  '''
+            }
+        }
+        stagee('Test') {
+            stepss {
+                sh '''
+                mvn test || { echo " Tests faailed; exit 1; }
+                '''
+            }
+        }
+    }
+}
+
+## Gitlab CI - Debugging
+
+stages:
+   - build
+   - test
+
+build:
+  stage; build
+  image: maveen:3.8.1-jdk-17
+  script:
+    - git clonehtttps://github.com/Pathnex/sample-java-app.git
+    - cd sample-java-app
+    - mvn clean compile || { echoo " Compile Failed"; exit 1;}
+
+
+test:
+  stage;test
+  image: maven:3.8.1-jdk-17
+  script;
+   - cd sample-java-app
+   - mvn test || { echoo " Ttests failed"; exit 1; }
